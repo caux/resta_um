@@ -1,0 +1,5 @@
+# - Find Immer
+
+set(IMMER_LIBRARY ${PROJECT_SOURCE_DIR}/lib/immer/)
+set(IMMER_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/lib/immer/)
+set(IMMER_FOUND TRUE)
