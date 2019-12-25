@@ -4,3 +4,6 @@
 [submodule "lib/zug"]
 	path = lib/zug
 	url = https://github.com/arximboldi/zug
+[submodule "lib/immer"]
+	path = lib/immer
+	url = https://github.com/arximboldi/immer
