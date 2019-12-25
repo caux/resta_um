@@ -16,8 +16,8 @@ else()
 endif()
 
 find_package(Boost 1.56 COMPONENTS system REQUIRED)
-find_package(Immer REQUIRED)
 find_package(Zug REQUIRED)
+find_package(Immer REQUIRED)
 find_package(Lager REQUIRED)
 
 # sources
