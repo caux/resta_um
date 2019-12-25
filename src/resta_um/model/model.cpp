@@ -122,7 +122,7 @@ app_model update(app_model m, action_t action)
                 return movePieceDown(m, a.position);
             },
             [&](reset) {
-                return m;
+                return make_initial();
             }},
         action);
 }

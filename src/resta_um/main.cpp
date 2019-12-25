@@ -38,7 +38,10 @@ int main(int argc, char** argv)
         std::move(initial_state), update, lager::with_manual_event_loop{});
 
     watch(store, draw);
+    store.dispatch(reset{});
+
     auto event = char{};
     while (std::cin >> event) {
+        store.dispatch(reset{});
     }
 }
