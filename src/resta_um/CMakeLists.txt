@@ -1,5 +1,6 @@
 add_executable(resta_um
-        model.cpp
+        model/model.cpp
+        main.cpp
     )
 
 target_link_libraries(resta_um
