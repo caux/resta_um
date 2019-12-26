@@ -43,7 +43,7 @@ app_model movePieceLeft(app_model m, position_t p)
     if(x < 2 || m.game.board[x - 1][y] != position_state::piece || m.game.board[x - 2][y] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(m.game.board, x - 2, y, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(setBoard(std::move(m.game.board), x - 2, y, position_state::piece), x, y, position_state::empty);
     return m;
 }
 
@@ -61,7 +61,7 @@ app_model movePieceRight(app_model m, position_t p)
     if(x >= width - 2 || m.game.board[x + 1][y] != position_state::piece || m.game.board[x + 2][y] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(m.game.board, x + 2, y, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(setBoard(std::move(m.game.board), x + 2, y, position_state::piece), x, y, position_state::empty);
     return m;
 }
 
@@ -79,7 +79,7 @@ app_model movePieceUp(app_model m, position_t p)
     if(y < 2 || m.game.board[x][y - 1] != position_state::piece || m.game.board[x][y - 2] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(m.game.board, x, y - 2, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(setBoard(std::move(m.game.board), x, y - 2, position_state::piece), x, y, position_state::empty);
     return m;
 }
 
@@ -97,7 +97,7 @@ app_model movePieceDown(app_model m, position_t p)
     if(y >= height - 2 || m.game.board[x][y + 1] != position_state::piece || m.game.board[x][y + 2] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(m.game.board, x, y + 2, position_state::piece), x, y, position_state::empty);;
+    m.game.board = setBoard(setBoard(std::move(m.game.board), x, y + 2, position_state::piece), x, y, position_state::empty);;
     return m;
 }
 
