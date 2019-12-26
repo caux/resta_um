@@ -1,4 +1,6 @@
+#include "actions.hpp"
 #include "model.hpp"
+#include "common.hpp"
 
 #include <zug/util.hpp>
 
@@ -25,7 +27,7 @@ namespace {
 
 board_t setBoard(board_t b, int x, int y, position_state s)
 {
-    return b.set(x, b[x].set(y, s));
+    return std::move(b).set(x, std::move(b[x]).set(y, s));
 }
 
 
@@ -43,7 +45,8 @@ app_model movePieceLeft(app_model m, position_t p)
     if(x < 2 || m.game.board[x - 1][y] != position_state::piece || m.game.board[x - 2][y] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(std::move(m.game.board), x - 2, y, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(std::move(m.game.board), x - 2, y, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
 
@@ -61,7 +64,8 @@ app_model movePieceRight(app_model m, position_t p)
     if(x >= width - 2 || m.game.board[x + 1][y] != position_state::piece || m.game.board[x + 2][y] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(std::move(m.game.board), x + 2, y, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(std::move(m.game.board), x + 2, y, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
 
@@ -79,7 +83,8 @@ app_model movePieceUp(app_model m, position_t p)
     if(y < 2 || m.game.board[x][y - 1] != position_state::piece || m.game.board[x][y - 2] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(std::move(m.game.board), x, y - 2, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(std::move(m.game.board), x, y - 2, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
 
@@ -97,7 +102,8 @@ app_model movePieceDown(app_model m, position_t p)
     if(y >= height - 2 || m.game.board[x][y + 1] != position_state::piece || m.game.board[x][y + 2] != position_state::empty)
         return m;
 
-    m.game.board = setBoard(setBoard(std::move(m.game.board), x, y + 2, position_state::piece), x, y, position_state::empty);;
+    m.game.board = setBoard(std::move(m.game.board), x, y + 2, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
 

@@ -1,3 +1,5 @@
+#include "model/common.hpp"
+#include "model/actions.hpp"
 #include "model/model.hpp"
 
 #include <lager/store.hpp>
