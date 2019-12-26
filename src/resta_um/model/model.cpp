@@ -23,10 +23,9 @@ const app_model initialApp   {{{{position_state::not_used, position_state::not_u
 
 namespace {
 
-app_model setBoard(app_model b, int x, int y, position_state s)
+board_t setBoard(board_t b, int x, int y, position_state s)
 {
-    b.game.board = std::move(b.game.board.set(x, b.game.board[x].set(y, s)));
-    return b;
+    return b.set(x, b[x].set(y, s));
 }
 
 
@@ -44,7 +43,8 @@ app_model movePieceLeft(app_model m, position_t p)
     if(x < 2 || m.game.board[x - 1][y] != position_state::piece || m.game.board[x - 2][y] != position_state::empty)
         return m;
 
-    return setBoard(setBoard(m, x - 2, y, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(setBoard(m.game.board, x - 2, y, position_state::piece), x, y, position_state::empty);
+    return m;
 }
 
 app_model movePieceRight(app_model m, position_t p)
@@ -61,7 +61,8 @@ app_model movePieceRight(app_model m, position_t p)
     if(x >= width - 2 || m.game.board[x + 1][y] != position_state::piece || m.game.board[x + 2][y] != position_state::empty)
         return m;
 
-    return setBoard(setBoard(m, x + 2, y, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(setBoard(m.game.board, x + 2, y, position_state::piece), x, y, position_state::empty);
+    return m;
 }
 
 app_model movePieceUp(app_model m, position_t p)
@@ -78,7 +79,8 @@ app_model movePieceUp(app_model m, position_t p)
     if(y < 2 || m.game.board[x][y - 1] != position_state::piece || m.game.board[x][y - 2] != position_state::empty)
         return m;
 
-    return setBoard(setBoard(m, x, y - 2, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(setBoard(m.game.board, x, y - 2, position_state::piece), x, y, position_state::empty);
+    return m;
 }
 
 app_model movePieceDown(app_model m, position_t p)
@@ -95,7 +97,8 @@ app_model movePieceDown(app_model m, position_t p)
     if(y >= height - 2 || m.game.board[x][y + 1] != position_state::piece || m.game.board[x][y + 2] != position_state::empty)
         return m;
 
-    return setBoard(setBoard(m, x, y + 2, position_state::piece), x, y, position_state::empty);
+    m.game.board = setBoard(setBoard(m.game.board, x, y + 2, position_state::piece), x, y, position_state::empty);;
+    return m;
 }
 
 }
