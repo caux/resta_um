@@ -11,6 +11,9 @@ using board_t = immer::array<immer::array<position_state>>;
 
 struct game_model
 {
+    static constexpr int width{7};
+    static constexpr int height{7};
+
     board_t board;
 };
 

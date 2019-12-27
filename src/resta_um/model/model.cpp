@@ -13,8 +13,6 @@
 
 namespace resta_um {
 
-constexpr int width{7};
-constexpr int height{7};
 const app_model initialApp   {{{{position_state::not_used, position_state::not_used, position_state::piece, position_state::piece, position_state::piece, position_state::not_used, position_state::not_used},
                                 {position_state::not_used, position_state::not_used, position_state::piece, position_state::piece, position_state::piece, position_state::not_used, position_state::not_used},
                                 {position_state::piece,    position_state::piece   , position_state::piece, position_state::piece, position_state::piece, position_state::piece   , position_state::piece   },
@@ -36,7 +34,7 @@ app_model movePieceLeft(app_model m, position_t p)
     const auto x = getX(p);
     const auto y = getY(p);
 
-    if(x >= width || y >= height)
+    if(x >= m.game.width || y >= m.game.height)
         return m;
 
     if(m.game.board[x][y] != position_state::piece)
@@ -46,6 +44,7 @@ app_model movePieceLeft(app_model m, position_t p)
         return m;
 
     m.game.board = setBoard(std::move(m.game.board), x - 2, y, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x - 1, y, position_state::empty);
     m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
@@ -55,16 +54,17 @@ app_model movePieceRight(app_model m, position_t p)
     const auto x = getX(p);
     const auto y = getY(p);
 
-    if(x >= width || y >= height)
+    if(x >= m.game.width || y >= m.game.height)
         return m;
 
     if(m.game.board[x][y] != position_state::piece)
         return m;
 
-    if(x >= width - 2 || m.game.board[x + 1][y] != position_state::piece || m.game.board[x + 2][y] != position_state::empty)
+    if(x >= m.game.width - 2 || m.game.board[x + 1][y] != position_state::piece || m.game.board[x + 2][y] != position_state::empty)
         return m;
 
     m.game.board = setBoard(std::move(m.game.board), x + 2, y, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x + 1, y, position_state::empty);
     m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
@@ -74,7 +74,7 @@ app_model movePieceUp(app_model m, position_t p)
     const auto x = getX(p);
     const auto y = getY(p);
 
-    if(x >= width || y >= height)
+    if(x >= m.game.width || y >= m.game.height)
         return m;
 
     if(m.game.board[x][y] != position_state::piece)
@@ -84,6 +84,7 @@ app_model movePieceUp(app_model m, position_t p)
         return m;
 
     m.game.board = setBoard(std::move(m.game.board), x, y - 2, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x, y - 1, position_state::empty);
     m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
@@ -93,16 +94,17 @@ app_model movePieceDown(app_model m, position_t p)
     const auto x = getX(p);
     const auto y = getY(p);
 
-    if(x >= width || y >= height)
+    if(x >= m.game.width || y >= m.game.height)
         return m;
 
     if(m.game.board[x][y] != position_state::piece)
         return m;
 
-    if(y >= height - 2 || m.game.board[x][y + 1] != position_state::piece || m.game.board[x][y + 2] != position_state::empty)
+    if(y >= m.game.height - 2 || m.game.board[x][y + 1] != position_state::piece || m.game.board[x][y + 2] != position_state::empty)
         return m;
 
     m.game.board = setBoard(std::move(m.game.board), x, y + 2, position_state::piece);
+    m.game.board = setBoard(std::move(m.game.board), x, y + 1, position_state::empty);
     m.game.board = setBoard(std::move(m.game.board), x, y, position_state::empty);
     return m;
 }
