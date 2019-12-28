@@ -33,9 +33,9 @@ ApplicationWindow {
                     moving = false;
                     event.accepted = true
                 }
-                else if (selectionX > 0)
+                else if (selectionY > 0)
                 {
-                    selectionX--;
+                    selectionY--;
                     event.accepted = true
                 }
             }
@@ -46,9 +46,9 @@ ApplicationWindow {
                     moving = false;
                     event.accepted = true
                 }
-                else if (selectionX < game.width - 1)
+                else if (selectionY < game.width - 1)
                 {
-                    selectionX++;
+                    selectionY++;
                     event.accepted = true
                 }
             }
@@ -59,9 +59,9 @@ ApplicationWindow {
                     moving = false;
                     event.accepted = true
                 }
-                else if (selectionY > 0)
+                else if (selectionX > 0)
                 {
-                    selectionY--;
+                    selectionX--;
                     event.accepted = true
                 }
             }
@@ -72,14 +72,14 @@ ApplicationWindow {
                     moving = false;
                     event.accepted = true
                 }
-                else if (selectionY < game.height - 1)
+                else if (selectionX < game.height - 1)
                 {
-                    selectionY++;
+                    selectionX++;
                     event.accepted = true
                 }
             }
             else if (event.key == Qt.Key_Space) {
-                if(game.board.get(selectionX + selectionY * game.width) == 2)
+                if(game.board.at(game.board.positionToIndex(selectionX, selectionY)) == 2)
                     moving = !moving;
             }
         }
@@ -95,8 +95,8 @@ ApplicationWindow {
                 model: game.board
 
                 delegate: Rectangle {
-                    property int row: index % game.width
-                    property int column: index / game.width
+                    property int row: game.board.indexToPosition(index).x
+                    property int column: game.board.indexToPosition(index).y
                     property bool selected: row == window.selectionX && column == window.selectionY
 
                     width: modelScale * 0.9

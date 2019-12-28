@@ -23,11 +23,12 @@ public:
     void setModel(board_t board);
 
     int rowCount(const QModelIndex& = QModelIndex()) const override;
+    Q_INVOKABLE QVariant at(int index) const;
     QVariant data(const QModelIndex& index,
                   int = Qt::DisplayRole) const override;
 
-    Q_INVOKABLE QVariant get(int index) const;
-
+    Q_INVOKABLE int positionToIndex(int x, int y) const;
+    Q_INVOKABLE QPoint indexToPosition(int index) const;
 private:
     board_t m_data;
 };
