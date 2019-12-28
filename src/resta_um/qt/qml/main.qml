@@ -79,7 +79,7 @@ ApplicationWindow {
                 }
             }
             else if (event.key == Qt.Key_Space) {
-                if(game.board.at(game.board.positionToIndex(selectionX, selectionY)) == 2)
+                if(game.board.isPiece(game.board.positionToIndex(selectionX, selectionY)))
                     moving = !moving;
             }
         }
@@ -104,9 +104,9 @@ ApplicationWindow {
                     radius: width * 0.5
 
                     border.width: 2
-                    border.color: selected ? "red" : model.display == 0 ? "black" : "white"
+                    border.color: selected ? "red" : game.board.isNotUsed(index) ? "black" : "white"
 
-                    color: model.display == 2 ? selected && moving ? "red" : "blue" : "black"
+                    color: game.board.isPiece(index) ? selected && moving ? "red" : "blue" : "black"
                 }
             }
         }

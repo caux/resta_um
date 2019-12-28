@@ -36,24 +36,9 @@ int Board::rowCount(const QModelIndex&) const
     return m_data.empty() ? 0 : m_data.size() * m_data[0].size();
 }
 
-Q_INVOKABLE QVariant Board::at(int index) const
-{
-    const auto boardHeight = m_data.size();
-    const auto boardWidth = m_data.empty() ? 0 : m_data[0].size();
-    const auto dataSize = boardHeight * boardWidth;
-
-    if (index >= 0 && index < static_cast<int>(dataSize))
-    {
-        auto position = indexToPosition(index);
-        return fromPositionState(m_data[position.x()][position.y()]);
-    }
-
-    return {};
-}
-
 QVariant Board::data(const QModelIndex& index, int) const
 {
-    return at(index.row());
+    return fromPositionState(at(index.row()));
 }
 
 Q_INVOKABLE int Board::positionToIndex(int x, int y) const
@@ -68,6 +53,26 @@ Q_INVOKABLE QPoint Board::indexToPosition(int index) const
     return QPoint{index / boardWidth, index % boardWidth};
 }
 
+Q_INVOKABLE bool Board::isNotUsed(int index) const
+{
+    return at(index) == position_state::not_used;
+}
+
+Q_INVOKABLE bool Board::isEmpty(int index) const
+{
+    return at(index) == position_state::empty;
+}
+
+Q_INVOKABLE bool Board::isPiece(int index) const
+{
+    return at(index) == position_state::piece;
+}
+
+position_state Board::at(int index) const
+{
+    auto position = indexToPosition(index);
+    return m_data[position.x()][position.y()];
+}
 
 Game::Game(context_t context)
     : m_context{std::move(context)}, m_board{new Board(this)}
