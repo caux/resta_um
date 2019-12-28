@@ -139,4 +139,4 @@ app_model update(app_model m, action_t action)
         action);
 }
 
-} // namespace sn
+} // namespace resta_um
