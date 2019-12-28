@@ -103,6 +103,9 @@ Q_INVOKABLE void Game::down(int x, int y)
     m_context.dispatch(move_down{{x, y}});
 }
 
-// Q_INVOKABLE void Game::reset() { m_context.dispatch(sn::reset{}); }
+Q_INVOKABLE void Game::reset()
+{
+    m_context.dispatch(resta_um::reset{});
+}
 
-} // namespace sn
+} // namespace resta_um

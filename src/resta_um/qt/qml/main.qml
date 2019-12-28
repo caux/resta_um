@@ -82,6 +82,11 @@ ApplicationWindow {
                 if(game.board.isPiece(game.board.positionToIndex(selectionX, selectionY)))
                     moving = !moving;
             }
+            else if (event.key == Qt.Key_R) {
+                game.reset();
+                moving = false;
+                event.accepted = true
+            }
         }
 
         Grid {

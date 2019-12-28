@@ -57,7 +57,7 @@ public:
     Q_INVOKABLE void right(int x, int y);
     Q_INVOKABLE void up(int x, int y);
     Q_INVOKABLE void down(int x, int y);
-    // Q_INVOKABLE void reset();
+    Q_INVOKABLE void reset();
 
     void setModel(game_model game);
 
